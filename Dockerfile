@@ -20,4 +20,3 @@ RUN /bin/bash /build/build.sh
 EXPOSE 3005
 
 VOLUME [ "/config" ]
-CMD [ "/usr/local/bin/internxt" ]
