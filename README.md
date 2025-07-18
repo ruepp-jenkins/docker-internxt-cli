@@ -61,7 +61,8 @@ If you want to interact with your local file system you should provide your own 
 | INTERNXT_PASSWORD | | Password for the internxt-cli configuration (only needed for auto login) |
 | INTERNXT_USERNAME  | | Username for the internxt-cli configuration (only needed for auto login) |
 | INTERNXT_SECRET | | OTP Secret for the internxt-cli configuration (only needed for auto login) |
-| WEBDAV_CHECK_INTERVAL | 60 | Interval for checking if webdav server is available or not |
+| WEBDAV_CHECK_INTERVAL | 60 | Interval for checking if webdav server is available or not (in seconds) |
+| WEBDAV_CHECK_TIMEOUT | 30 | Timeout for checking if webdav server is available or not (in seconds) |
 
 # Time / Date
 

@@ -25,15 +25,16 @@ else
     echo "$(date '+%Y-%m-%d %H:%M:%S') Config file $CONFIG_FILE not found. Using default PORT=$PORT and PROTOCOL=$PROTOCOL."
 fi
 
-URL="${PROTOCOL}://127.0.0.1:${PORT}"
+URL="${PROTOCOL}://127.0.0.1:${PORT}/"
 
 echo "$(date '+%Y-%m-%d %H:%M:%S') Monitoring WebDAV server at: $URL - Check interval: $WEBDAV_CHECK_INTERVAL seconds"
 
 while true; do
-    HTTP_STATUS=$(curl -m 5 -k -X PROPFIND -o /dev/null -s -w "%{http_code}" "$URL" -H "Depth: 1")
+    sleep $WEBDAV_CHECK_INTERVAL
+
+    HTTP_STATUS=$(curl -m $WEBDAV_CHECK_TIMEOUT -k -X PROPFIND -o /dev/null -s -w "%{http_code}" "$URL" -H "Depth: 1")
 
     if [[ "$HTTP_STATUS" =~ ^2[0-9]{2}$ ]]; then
-        sleep $WEBDAV_CHECK_INTERVAL
         continue
     else
         echo "$(date '+%Y-%m-%d %H:%M:%S') Error: Server at $URL responded with invalid HTTP status $HTTP_STATUS. Exiting."
