@@ -17,5 +17,9 @@ find /build -type f -iname "*.sh" -exec chmod +x {} \;
 # install Internxt CLI
 /build/internxt-cli.sh
 
+# add persistent files
+mkdir -p /run
+mv /build/files/webdav_start.sh /run/
+
 # cleanup
 /build/cleanup.sh
