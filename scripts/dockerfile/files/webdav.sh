@@ -27,14 +27,13 @@ fi
 
 URL="${PROTOCOL}://127.0.0.1:${PORT}"
 
-echo "Checking WebDAV server at: $URL"
+echo "Monitoring WebDAV server at: $URL"
 
 while true; do
     HTTP_STATUS=$(curl -m 5 -k -o /dev/null -s -w "%{http_code}" "$URL")
 
     if [ "$HTTP_STATUS" == "404" ]; then
-        echo "$(date '+%Y-%m-%d %H:%M:%S') Server at $URL running."
-        sleep 10
+        sleep 15
         continue
     else
         echo "$(date '+%Y-%m-%d %H:%M:%S') Error: Server at $URL responded with invalid HTTP status $HTTP_STATUS. Exiting."
