@@ -64,7 +64,9 @@ Examples:
 
 This image opens the default webdav port 3005
 
-# Docker compose (example)
+# Examples
+
+## Docker Compose WebDav Server
 
 ```yaml
 services:
@@ -72,12 +74,19 @@ services:
     container_name: internxt-cli-webdav
     restart: unless-stopped
     image: ruepp/internxt-cli
+    command: ["/usr/local/bin/internxt", "webdav", "enable" ]
     volumes:
       - ./config:/config
     environment:
       TZ: Europe/Berlin
     ports:
       - 3005:3005
+```
+
+## Login or configure internxt
+
+```
+docker run --rm -it -v /path/to/config:/config ruepp/internxt-cli
 ```
 
 # Tags
