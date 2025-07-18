@@ -12,7 +12,7 @@ response=$(/usr/local/bin/internxt whoami)
 # Check if the response contains "You are logged in as:"
 if [[ $response == *"You are logged in as:"* ]]; then
   username=$(echo "$response" | grep -oP 'You are logged in as: \K.*')
-  echo "Already logged in as ${username}."
+  echo "$(date '+%Y-%m-%d %H:%M:%S') Already logged in as ${username}."
   exit 0
 fi
 
@@ -25,7 +25,7 @@ if [[ -n "$INTERNXT_SECRET" ]]; then
   OTP_CODE=$(oathtool --totp -b "$INTERNXT_SECRET")
 
   if [[ -z "$OTP_CODE" ]]; then
-    echo "Error: Failed to generate OTP from INTERNXT_SECRET."
+    echo "$(date '+%Y-%m-%d %H:%M:%S') Error: Failed to generate OTP from INTERNXT_SECRET."
     exit 1
   fi
 
@@ -34,12 +34,12 @@ if [[ -n "$INTERNXT_SECRET" ]]; then
 fi
 
 # Execute the command
-echo "Login to user account..."
+echo "$(date '+%Y-%m-%d %H:%M:%S') Login to user account..."
 "${cmd[@]}"
 
 if [ $? -ne 0 ]; then
-  echo "Login failed" >&2
+  echo "$(date '+%Y-%m-%d %H:%M:%S') Login failed" >&2
   exit 1
 else
-  echo "Logged in."
+  echo "$(date '+%Y-%m-%d %H:%M:%S') Logged in."
 fi

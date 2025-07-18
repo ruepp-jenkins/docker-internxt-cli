@@ -1,7 +1,7 @@
 #!/bin/bash
 
 while true; do
-  echo "Starting webdav server (with login enabled)"
+  echo "$(date '+%Y-%m-%d %H:%M:%S') Starting webdav server (with login enabled)"
   /scripts/login.sh
   /scripts/webdav.sh
 
@@ -9,11 +9,11 @@ while true; do
 
   # check if we got logged out
   if [ $exit_code -ne 401 ]; then
-    echo "Non recoverable return code $exit_code"
+    echo "$(date '+%Y-%m-%d %H:%M:%S') Non recoverable return code $exit_code"
     exit $exit_code
   fi
 
   # disable webdav server before trying again
-  echo "Got logged out, stopping current webdav server and restarting login procedure"
+  echo "$(date '+%Y-%m-%d %H:%M:%S') Got logged out, stopping current webdav server and restarting login procedure"
   /usr/local/bin/internxt webdav disable
 done

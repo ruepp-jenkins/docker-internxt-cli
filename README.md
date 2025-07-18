@@ -61,6 +61,7 @@ If you want to interact with your local file system you should provide your own 
 | INTERNXT_PASSWORD | | Password for the internxt-cli configuration (only needed for auto login) |
 | INTERNXT_USERNAME  | | Username for the internxt-cli configuration (only needed for auto login) |
 | INTERNXT_SECRET | | OTP Secret for the internxt-cli configuration (only needed for auto login) |
+| WEBDAV_CHECK_INTERVAL | 60 | Interval for checking if webdav server is available or not |
 
 # Time / Date
 
@@ -91,13 +92,7 @@ Same like `/scripts/webdav.sh` but in addition performs a login using `/scripts/
 
 ## /scripts/login.sh
 
-Logs you into your Internxt account using the following environment variables if needed (checked using `internxt whoami`). Not meant to be run by hand:
-
-| Name | Description |
-| ---- | ----------- |
-| INTERNXT_USERNAME | Your Internxt email |
-| INTERNXT_PASSWORD | Your Internxt password |
-| INTERNXT_SECRET | Your one time password secret (not the output 6 digits) - this is used to create the 6 digit password for the login |
+Logs you into your Internxt account using the environment variables `INTERNXT_USERNAME`, `INTERNXT_PASSWORD` and `INTERNXT_SECRET`. I uses `internxt whoami` to check if login is really needed. Not meant to be run by hand.
 
 # Examples
 
