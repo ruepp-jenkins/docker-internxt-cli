@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Starting webdave server ..."
+echo "Starting webdav server ..."
 /usr/local/bin/internxt webdav enable
 
 CONFIG_FILE="/config/config.webdav.inxt"
