@@ -19,7 +19,7 @@ find /build -type f -iname "*.sh" -exec chmod +x {} \;
 
 # add persistent files
 mkdir -p /run
-mv /build/files/webdav_start.sh /run/
+mv /build/files/webdav.sh /run/
 
 # cleanup
 /build/cleanup.sh
