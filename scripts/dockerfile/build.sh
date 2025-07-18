@@ -14,10 +14,6 @@ find /build -type f -iname "*.sh" -exec chmod +x {} \;
 # determinate build platform
 . /build/platforms/${TARGETPLATFORM}.sh
 
-# add config
-mkdir -p /config
-ln -s /home/root/.internxt-cli /config
-
 # install Internxt CLI
 /build/internxt-cli.sh
 
