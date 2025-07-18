@@ -6,8 +6,18 @@ if [[ -z "$INTERNXT_USERNAME" || -z "$INTERNXT_PASSWORD" ]]; then
   exit 1
 fi
 
+# Pre check if already logged in
+response=$(/usr/local/bin/internxt whoami)
+
+# Check if the response contains "You are logged in as:"
+if [[ $response == *"You are logged in as:"* ]]; then
+  username=$(echo "$response" | grep -oP 'You are logged in as: \K.*')
+  echo "Already logged in as ${username}."
+  exit 0
+fi
+
 # Initialize command arguments
-cmd=( /usr/local/bin/internxt -x -e "$INTERNXT_USERNAME" -p "$INTERNXT_PASSWORD" )
+cmd=( /usr/local/bin/internxt login -x -e "$INTERNXT_USERNAME" -p "$INTERNXT_PASSWORD" )
 
 # If INTERNXT_SECRET is set, generate TOTP and add -w option
 if [[ -n "$INTERNXT_SECRET" ]]; then

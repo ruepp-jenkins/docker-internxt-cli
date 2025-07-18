@@ -38,10 +38,10 @@ while true; do
         continue
     else
         echo "$(date '+%Y-%m-%d %H:%M:%S') Error: Server at $URL responded with invalid HTTP status $HTTP_STATUS. Exiting."
-        if [ -z "$HTTP_STATUS" || "$HTTP_STATUS" == "000" || "$HTTP_STATUS" == "0" ]; then
+        if [ -z "$HTTP_STATUS" ] || [ "$HTTP_STATUS" == "000" ] || [ "$HTTP_STATUS" == "0" ]; then
             exit 1
         else
-            exit $HTTP_STATUS
+            exit $((HTTP_STATUS))
         fi
     fi
 done
