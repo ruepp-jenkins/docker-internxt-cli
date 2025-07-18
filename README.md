@@ -68,25 +68,41 @@ This image opens the default webdav port 3005
 
 ## Docker Compose WebDav Server
 
+Run the webdav server using a custom helper script `/scripts/webdav.sh`:
+As the webserver automatically spawns in the background it is not suitable to be used in a docker container. To be able to run webdav the script is doing the following steps:
+1. start the webdav server
+2. read configuration file to get protocol and port
+3. call all 10 seconds the webdav server and checks if it is available or not
+4. automatically stop the container if webdav server is unhealthy
+
+The server is also unhealthy if 
+
 ```yaml
 services:
   internxt-cli-webdav:
     container_name: internxt-cli-webdav
     restart: unless-stopped
     image: ruepp/internxt-cli
-    command: ["/usr/local/bin/internxt", "webdav", "enable" ]
+    command: ["/scripts/webdav.sh" ]
     volumes:
       - ./config:/config
     environment:
       TZ: Europe/Berlin
     ports:
-      - 3005:3005
+      - 127.0.0.1:3005:3005
 ```
 
 ## Login or configure internxt
 
 ```
-docker run --rm -it -v /path/to/config:/config ruepp/internxt-cli
+# general help
+docker run --rm -it -v /path/to/config:/config ruepp/internxt-cli internxt
+
+# login
+docker run --rm -it -v /path/to/config:/config ruepp/internxt-cli internxt login
+
+# webdav config
+docker run --rm -it -v /path/to/config:/config ruepp/internxt-cli internxt webdav-config -s -p 3005 -t 0
 ```
 
 # Tags

@@ -5,4 +5,5 @@ echo "Install packages"
 apt-get update
 apt-get install -y \
         jq \
+        oathtool \
         tzdata

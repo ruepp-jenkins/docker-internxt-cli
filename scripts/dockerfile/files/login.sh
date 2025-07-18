@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# Check required environment variables
+if [[ -z "$INTERNXT_USERNAME" || -z "$INTERNXT_PASSWORD" ]]; then
+  echo "Error: INTERNXT_USERNAME and INTERNXT_PASSWORD must be set."
+  exit 1
+fi
+
+# Initialize command arguments
+cmd=( /usr/local/bin/internxt -x -e "$INTERNXT_USERNAME" -p "$INTERNXT_PASSWORD" )
+
+# If INTERNXT_SECRET is set, generate TOTP and add -w option
+if [[ -n "$INTERNXT_SECRET" ]]; then
+  # Generate 6-digit TOTP code from INTERNXT_SECRET
+  OTP_CODE=$(oathtool --totp -b "$INTERNXT_SECRET")
+
+  if [[ -z "$OTP_CODE" ]]; then
+    echo "Error: Failed to generate OTP from INTERNXT_SECRET."
+    exit 1
+  fi
+
+  # Append the OTP argument
+  cmd+=( -w "$OTP_CODE" )
+fi
+
+# Execute the command
+echo "Login to user account..."
+"${cmd[@]}"
+
+if [ $? -ne 0 ]; then
+  echo "Login failed" >&2
+  exit 1
+else
+  echo "Logged in."
+fi

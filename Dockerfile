@@ -9,6 +9,9 @@ LABEL github="https://github.com/ruepp-jenkins/docker-internxt-cli"
 LABEL INTERNXT_CLI_VERSION=${INTERNXT_CLI_VERSION}
 
 ENV TZ=Europe/Berlin
+ENV INTERNXT_USERNAME
+ENV INTERNXT_PASSWORD
+ENV INTERNXT_SECRET
 
 ADD scripts/dockerfile/ /build
 

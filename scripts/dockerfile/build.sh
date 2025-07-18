@@ -18,8 +18,8 @@ find /build -type f -iname "*.sh" -exec chmod +x {} \;
 /build/internxt-cli.sh
 
 # add persistent files
-mkdir -p /run
-mv /build/files/webdav.sh /run/
+mkdir -p /scripts
+mv /build/files/* /scripts/
 
 # cleanup
 /build/cleanup.sh

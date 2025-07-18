@@ -1,5 +1,8 @@
 #!/bin/bash
 
+echo "Starting webdave server ..."
+/usr/local/bin/internxt webdav enable
+
 CONFIG_FILE="/config/config.webdav.inxt"
 
 # Default values
@@ -35,6 +38,10 @@ while true; do
         continue
     else
         echo "$(date '+%Y-%m-%d %H:%M:%S') Error: Server at $URL responded with invalid HTTP status $HTTP_STATUS. Exiting."
-        exit 1
+        if [ -z "$HTTP_STATUS" || "$HTTP_STATUS" == "000" || "$HTTP_STATUS" == "0" ]; then
+            exit 1
+        else
+            exit $HTTP_STATUS
+        fi
     fi
 done
