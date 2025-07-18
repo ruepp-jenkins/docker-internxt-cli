@@ -11,9 +11,6 @@ find /build -type f -iname "*.sh" -exec chmod +x {} \;
 /build/apt-get.sh
 /build/tzdata.sh
 
-# determinate build platform
-. /build/platforms/${TARGETPLATFORM}.sh
-
 # install Internxt CLI
 /build/internxt-cli.sh
 

@@ -12,7 +12,7 @@ then
     echo "Start ${BRANCH_NAME} build"
     docker buildx build \
         --build-arg INTERNXT_CLI_VERSION=${INTERNXT_CLI_VERSION} \
-        --platform linux/amd64,linux/arm64 \
+        --platform linux/amd64,linux/arm64,linux/ppc64le,linux/s390x \
         -t ${IMAGE_FULLNAME}:${INTERNXT_CLI_VERSION} \
         -t ${IMAGE_FULLNAME}:latest \
         --pull \
@@ -21,7 +21,7 @@ else
     echo "Start branch ${BRANCH_NAME} build"
     docker buildx build \
         --build-arg INTERNXT_CLI_VERSION=${INTERNXT_CLI_VERSION} \
-        --platform linux/amd64,linux/arm64 \
+        --platform linux/amd64,linux/arm64,linux/ppc64le,linux/s390x \
         -t ${IMAGE_FULLNAME}-test:${BRANCH_NAME}-${INTERNXT_CLI_VERSION} \
         --pull \
         --push .
