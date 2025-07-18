@@ -4,7 +4,7 @@ properties(
             displayName: 'docker-internxt-cli',
             projectUrlStr: 'https://github.com/ruepp-jenkins/docker-internxt-cli'
         ),
-        disableConcurrentBuilds()
+        disableConcurrentBuilds(abortPrevious: true)
     ]
 )
 
