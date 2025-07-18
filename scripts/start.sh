@@ -9,6 +9,7 @@ scripts/docker_initialize.sh
 echo "[${BRANCH_NAME}] Building images: ${IMAGE_FULLNAME}"
 if [ "$BRANCH_NAME" = "master" ] || [ "$BRANCH_NAME" = "main" ]
 then
+    echo "Start ${BRANCH_NAME} build"
     docker buildx build \
         --build-arg INTERNXT_CLI_VERSION=${INTERNXT_CLI_VERSION} \
         --platform linux/amd64,linux/arm64 \
@@ -17,6 +18,7 @@ then
         --pull \
         --push .
 else
+    echo "Start branch ${BRANCH_NAME} build"
     docker buildx build \
         --build-arg INTERNXT_CLI_VERSION=${INTERNXT_CLI_VERSION} \
         --platform linux/amd64,linux/arm64 \
