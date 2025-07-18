@@ -55,9 +55,6 @@ If you want to interact with your local file system you should provide your own 
 
 # Environment variables (with default values)
 
-- TZ=Europe/Berlin
-  - Set your timezone here (see Time / Date below)
-
 | Name | Default | Description |
 | ---- | ------- | ----------- |
 | TZ | Europe/Berlin | Timezone to use for the container |
