@@ -32,7 +32,7 @@ echo "$(date '+%Y-%m-%d %H:%M:%S') Monitoring WebDAV server at: $URL - Check int
 while true; do
     sleep $WEBDAV_CHECK_INTERVAL
 
-    HTTP_STATUS=$(curl -m $WEBDAV_CHECK_TIMEOUT -k -X PROPFIND -o /dev/null -s -w "%{http_code}" "$URL" -H "Depth: 1")
+    HTTP_STATUS=$(curl -m $WEBDAV_CHECK_TIMEOUT -k -X PROPFIND -o /dev/null -s -w "%{http_code}" "$URL" -H "Depth: 0")
 
     if [[ "$HTTP_STATUS" =~ ^2[0-9]{2}$ ]]; then
         continue
