@@ -107,7 +107,9 @@ services:
     container_name: internxt-cli-webdav
     restart: unless-stopped
     image: ruepp/internxt-cli
-    command: ["/scripts/webdav.sh" ]
+    command: [ "/scripts/webdav.sh" ]
+    # as internxt can consume a lot of cpu resources your can also run it in nice mode from lowest priority 19 over normal 0 to highest -20 (not recommended)
+    # command: [ "nice", "-n", "10", "/scripts/webdav.sh" ] # run in lower priority mode 10
     volumes:
       - ./config:/config
     environment:
@@ -130,7 +132,9 @@ services:
     container_name: internxt-cli-webdav
     restart: unless-stopped
     image: ruepp/internxt-cli
-    command: ["/scripts/webdav_with_login.sh" ]
+    command: [ "/scripts/webdav_with_login.sh" ]
+    # as internxt can consume a lot of cpu resources your can also run it in nice mode from lowest priority 19 over normal 0 to highest -20 (not recommended)
+    # command: [ "nice", "-n", "10", "/scripts/webdav_with_login.sh" ] # run in lower priority mode 10
     volumes:
       - ./config:/config
     environment:
