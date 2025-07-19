@@ -35,12 +35,16 @@ while true; do
     HTTP_STATUS="0"
     RETRY_COUNT=0
 
+    # check webdav server up to 3 times
     while [ "$RETRY_COUNT" -lt 3 ]; do
+        # check server using curl
         HTTP_STATUS=$(curl -m $WEBDAV_CHECK_TIMEOUT -k -X PROPFIND -o /dev/null -s -w "%{http_code}" "$URL" -H "Depth: 0")
+
         if [[ "$HTTP_STATUS" =~ ^2[0-9]{2}$ ]]; then
             break
         else
             RETRY_COUNT=$((RETRY_COUNT + 1))
+            echo "$(date '+%Y-%m-%d %H:%M:%S') Error [${RETRY_COUNT}/3]: Server at $URL responded with invalid HTTP status $HTTP_STATUS"
             sleep 3
         fi
     done
