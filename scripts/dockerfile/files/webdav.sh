@@ -69,6 +69,7 @@ while true; do
             if [ "$RETRY_COUNT" -gt 0 ]; then
                 echo "$(date '+%Y-%m-%d %H:%M:%S') Server is available again after ${RETRY_COUNT} retries: http=$HTTP_STATUS / webdav=$WEBDAV_STATUS"
             fi
+            break;
         fi
     done
 
