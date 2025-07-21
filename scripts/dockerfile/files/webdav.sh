@@ -61,10 +61,14 @@ while true; do
         WEBDAV_STATUS=$(echo "$WEBDAV_STATUS_TEXT" | awk '{print $2}')
 
         # check webdav and http server status code
-        if [[ ! "$WEBDAV_STATUS" =~ ^2[0-9]{2}$ || ! "$HTTP_STATUS" =~ ^2[0-9]{2}$ ]]; then
+        if [[ ! "$HTTP_STATUS" =~ ^2[0-9]{2}$  || ! "$WEBDAV_STATUS" =~ ^2[0-9]{2}$ ]]; then
             RETRY_COUNT=$((RETRY_COUNT + 1))
             echo "$(date '+%Y-%m-%d %H:%M:%S') Error [${RETRY_COUNT}/3]: Webdav Server at $URL responded with invalid status http=$HTTP_STATUS / webdav=$WEBDAV_STATUS"
             sleep 3
+        else
+            if [ "$RETRY_COUNT" -gt 0 ]; then
+                echo "$(date '+%Y-%m-%d %H:%M:%S') Server is available again after ${RETRY_COUNT} retries: http=$HTTP_STATUS / webdav=$WEBDAV_STATUS"
+            fi
         fi
     done
 
