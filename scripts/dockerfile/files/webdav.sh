@@ -43,6 +43,24 @@ URL="${PROTOCOL}://127.0.0.1:${PORT}/"
 
 echo "$(date '+%Y-%m-%d %H:%M:%S') Monitoring WebDAV server at: $URL - Check interval: $WEBDAV_CHECK_INTERVAL seconds"
 
+exit_with_code() {
+    local exit_code="$1"
+
+    # Check if the exit code is not set or an invalid number
+    if ! [[ -z "$exit_code" || "$exit_code" =~ ^[0-9]+$ ]]; then
+        echo "$(date '+%Y-%m-%d %H:%M:%S') Invalid exit code: $exit_code. Exiting with code 1."
+        exit 1
+    fi
+
+    # Check if the exit code consists only of zeros
+    if [[ "$exit_code" =~ ^0+$ ]]; then
+        exit 1
+    fi
+
+    # Exit with the provided exit code
+    exit "$exit_code"
+}
+
 while true; do
     sleep $WEBDAV_CHECK_INTERVAL
 
@@ -63,7 +81,7 @@ while true; do
         # check webdav and http server status code
         if [[ ! "$HTTP_STATUS" =~ ^2[0-9]{2}$  || ! "$WEBDAV_STATUS" =~ ^2[0-9]{2}$ ]]; then
             RETRY_COUNT=$((RETRY_COUNT + 1))
-            echo "$(date '+%Y-%m-%d %H:%M:%S') Error [${RETRY_COUNT}/3]: Webdav Server at $URL responded with invalid status http=$HTTP_STATUS / webdav=$WEBDAV_STATUS"
+            echo "$(date '+%Y-%m-%d %H:%M:%S') Error [${RETRY_COUNT}/3]: Server at $URL responded with invalid status http=$HTTP_STATUS / webdav=$WEBDAV_STATUS"
             sleep 3
         else
             if [ "$RETRY_COUNT" -gt 0 ]; then
@@ -79,19 +97,13 @@ while true; do
     else
         echo "$(date '+%Y-%m-%d %H:%M:%S') Error: Server at $URL responded with invalid status http=$HTTP_STATUS / webdav=$WEBDAV_STATUS. Exiting."
         # prefere the webdav status code as exit code
-        if [ -n "$WEBDAV_STATUS" ] && [ "$WEBDAV_STATUS" != "000" ] || [ "$WEBDAV_STATUS" != "0" ]; then
-            if [[ ! "$WEBDAV_STATUS" =~ ^2[0-9]{2}$ ]]; then
-                echo "$(date '+%Y-%m-%d %H:%M:%S') Error: Webdav Server at $URL responded with invalid status http=$HTTP_STATUS / webdav=$WEBDAV_STATUS. Exiting."
-                exit $((WEBDAV_STATUS))
-            fi
+        if [[ ! "$WEBDAV_STATUS" =~ ^2[0-9]{2}$ ]]; then
+            echo "$(date '+%Y-%m-%d %H:%M:%S') Error: Webdav Server at $URL responded with invalid status http=$HTTP_STATUS / webdav=$WEBDAV_STATUS. Exiting."
+            exit_with_code $WEBDAV_STATUS
         fi
 
         # webdav status code seems to be fine/not available, use http status code as exit code
         echo "$(date '+%Y-%m-%d %H:%M:%S') Error: Server at $URL responded with invalid status http=$HTTP_STATUS / webdav=$WEBDAV_STATUS. Exiting."
-        if [ -z "$HTTP_STATUS" ] || [ "$HTTP_STATUS" == "000" ] || [ "$HTTP_STATUS" == "0" ]; then
-            exit 1
-        else
-            exit $((HTTP_STATUS))
-        fi
+        exit_with_code $HTTP_STATUS
     fi
 done
