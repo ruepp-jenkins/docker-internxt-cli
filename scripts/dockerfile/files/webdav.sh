@@ -58,7 +58,7 @@ exit_with_code() {
     fi
 
     # Exit with the provided exit code
-    exit "$exit_code"
+    exit $(($exit_code))
 }
 
 while true; do
