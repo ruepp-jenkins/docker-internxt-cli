@@ -1,14 +1,15 @@
 #!/bin/bash
 
+echo "$(date '+%Y-%m-%d %H:%M:%S') Starting webdav server (with login enabled)"
+
 while true; do
-  echo "$(date '+%Y-%m-%d %H:%M:%S') Starting webdav server (with login enabled)"
   /scripts/login.sh
   /scripts/webdav.sh
 
   exit_code=$?
 
-  # check if we got logged out
-  if [ $exit_code -ne 401 ]; then
+  # check if we got logged out (10 = 401 for not logged in)
+  if [ $exit_code -ne 10 ]; then
     echo "$(date '+%Y-%m-%d %H:%M:%S') Non recoverable return code $exit_code"
     exit $exit_code
   fi
