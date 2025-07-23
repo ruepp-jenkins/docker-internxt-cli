@@ -7,7 +7,7 @@ Aim of this project is to provide the official @internxt/cli from https://www.np
 This is provided free and as stated in the license feel free to use at your own risk.
 
 - Github: https://github.com/ruepp-jenkins/docker-internxt-cli
-- Docker: (ttps://hub.docker.com/r/ruepp/internxt-cli
+- Docker: https://hub.docker.com/r/ruepp/internxt-cli
 
 # Features
 
