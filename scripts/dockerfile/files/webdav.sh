@@ -92,7 +92,7 @@ while true; do
     else
         echo "$(date '+%Y-%m-%d %H:%M:%S') Error: Server at $URL responded with invalid status http=$HTTP_STATUS / webdav=$WEBDAV_STATUS. Exiting."
         # prefere the webdav status code as exit code
-        if [[ ! "$WEBDAV_STATUS" =~ ^2[0-9]{2}$ ]]; then
+        if [[ -n "$WEBDAV_STATUS" ]] && [[ ! "$WEBDAV_STATUS" =~ ^2[0-9]{2}$ ]]; then
             echo "$(date '+%Y-%m-%d %H:%M:%S') Error: Webdav Server at $URL responded with invalid status http=$HTTP_STATUS / webdav=$WEBDAV_STATUS. Exiting."
             exit_by_status_code $WEBDAV_STATUS
         fi
