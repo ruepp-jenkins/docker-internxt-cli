@@ -85,7 +85,7 @@ Examples:
 
 ## /scripts/webdav.sh
 
-Spawns the webdav server. It uses the configuration and credentials inside the `/config` folder. It checks every 10 seconds if the server gives a correct response. If not the docker container dies.
+Spawns the webdav server. It uses the configuration and credentials inside the `/config` folder. It checks every 60 seconds if the server gives a correct response. If not it retries 3 times and and then stops the container (dies).
 
 ## /scripts/webdav_with_login.sh
 
