@@ -66,7 +66,7 @@ while true; do
     # check webdav server up to 3 times
     while [ "$RETRY_COUNT" -lt 3 ]; do
         # check server using curl
-        response=$(curl -s -w "%{http_code}" -X PROPFIND -H "Depth: 1" "$URL")
+        response=$(curl -s -k -w "%{http_code}" -X PROPFIND -H "Depth: 1" "$URL")
         HTTP_STATUS="${response: -3}"
         body="${response::-3}"
 
