@@ -54,9 +54,15 @@ pipeline {
                 git branch: env.BRANCH_NAME, url: env.GIT_URL
             }
         }
+        stage('Build') {
+            steps {
+                sh 'chmod +x scripts/*.sh'
+                sh './scripts/start.sh'
+            }
+        }
         stage('SBOM generation') {
             steps {
-                sh "docker run --rm -v /opt/docker/jenkins/jenkins_ws:/home/jenkins/workspace aquasec/trivy image --format cyclonedx --output ${WORKSPACE}/bom.xml --scanners vuln,misconfig,secret,license ${IMAGE_FULLNAME}"
+                sh "docker run --rm -v /opt/docker/jenkins/jenkins_ws:/home/jenkins/workspace aquasec/trivy image --format cyclonedx --output ${WORKSPACE}/bom.xml --scanners vuln,secret ${IMAGE_FULLNAME}"
             }
         }
         stage('DependencyTracker') {
@@ -65,7 +71,7 @@ pipeline {
                     // root project body
                     def body = groovy.json.JsonOutput.toJson([
                         name: "${env.JOB_NAME}",
-                        classifier: "APPLICATION"
+                        classifier: "CONTAINER"
                     ])
 
                     // create root project
@@ -87,15 +93,9 @@ pipeline {
                     projectProperties: [
                         isLatest: true,
                         parentName: env.JOB_NAME,
-                        tags: ['dotnet']
+                        tags: ['image']
                     ]
                 )
-            }
-        }
-        stage('Build') {
-            steps {
-                sh 'chmod +x scripts/*.sh'
-                sh './scripts/start.sh'
             }
         }
     }
