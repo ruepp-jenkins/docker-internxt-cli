@@ -1,3 +1,15 @@
+# Attention - no newer images!
+
+I love to build docker images especially if I want to use them for myselfe. Recently I tried to use the WebDav again and it was simply no longer working. After a search I got the info that they removed it from the StackSocial plan and added there also an information now that it is no longer included.
+
+For me the WebDav feature was the purely function I wanted and why I bought it. So I tried to talk to InternXT (no response to my mails) and to StackSocial which told me that the seller changed it and now I need to stick to the new situation. For me I really do not like how InternXT is developing and that they shutdown features after you bought it. Also I was surprised that it felt like having no value to StackSocial as paying customer.
+
+So I hope you understand my decision to shutdown this image building service as it is no longer useful to me and consumes some money to build the images for all different architectures.
+
+For reference see:
+- Issue report on InternXT github: https://github.com/internxt/cli/issues/384
+- Wayback snapshot of the page in Juli (sometimes after Juli the feature was removed): https://web.archive.org/web/20250721141208/https://www.stacksocial.com/sales/internxt-cloud-storage-lifetime-subscription-5tb-plan
+
 # General
 
 This is an inofficial project and has nothing to do with Internxt!
