@@ -1,3 +1,7 @@
+# Archived
+
+I decided to archive this project. If you want to use webdav in a docker container please switch to the official docker images.
+
 # General
 
 During 2025 there was an incident when InternXT changed already bought StackSocial plans and removed the CLI. Details: [INCIDENT.md](INCIDENT.md)
